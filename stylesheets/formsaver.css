@@ -1,0 +1,27 @@
+#testform .field {
+    width: 400px;
+    margin: 0 5px 10px 5px;
+}
+#testform .field .label {
+    width: 130px;
+    display: inline-block;
+    vertical-align: top;
+}
+#testform .field__textarea, #testform .field__radiogroup, #testform .field__select, #testform .field__multipleselect {
+    display: inline-block;
+}
+#testform .field__textarea, #testform .field__text, #testform .field__select, #testform .field__multipleselect {
+    width: 150px;
+}
+#testform .field__radiogroup {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#testform .field__multipleselect {
+    height: 75px;
+}
+#testform button {
+    width: 94px;
+    height: 22px;
+}

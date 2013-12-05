@@ -1,76 +1,144 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>jquery.formsaver.js by hackprime</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/formsaver.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script type="text/javascript" src="javascripts/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
+    <script type="text/javascript" src="javascripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.formsaver.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <header>
         <h1>jquery.formsaver.js</h1>
         <p>Easy jQuery plugin for saving and restoring form data into LocalStorage</p>
 
         <p class="view"><a href="https://github.com/hackprime/jquery.formsaver.js">View the Project on GitHub <small>hackprime/jquery.formsaver.js</small></a></p>
 
-
         <ul>
-          <li><a href="https://github.com/hackprime/jquery.formsaver.js/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/hackprime/jquery.formsaver.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/hackprime/jquery.formsaver.js">View On <strong>GitHub</strong></a></li>
+            <li><a href="https://github.com/hackprime/jquery.formsaver.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+            <li><a href="https://github.com/hackprime/jquery.formsaver.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+            <li><a href="https://github.com/hackprime/jquery.formsaver.js">View On <strong>GitHub</strong></a></li>
         </ul>
-      </header>
-      <section>
-        <h2>
-<a name="usage-example" class="anchor" href="#usage-example"><span class="octicon octicon-link"></span></a>Usage example:</h2>
+    </header>
+    <section>
+        <h2><a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".save_button"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <p>Enter random data in form and click "save" button. Then, try to reset form (via page reloading or "reset" button) and restore saved data ("restore" button). Data will be restored in form and cleared from LocalStorage.</p>
+
+        <form id="testform">
+            <div class="field">
+                <label class="label" for="id_text_input">Text input</label>
+                <input class="field__text" type="text" name="text_input" id="id_text_input">
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_textarea">Textarea</label>
+                <textarea class="field__textarea" name="textarea" id="id_textarea"></textarea>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_checkbox_input">Checkbox input</label>
+                <input type="checkbox" name="checkbox_input" id="id_checkbox_input">
+            </div>
+
+            <div class="field">
+                <span class="label" for="id_text_input">Radio inputs</span>
+                <ul class="field__radiogroup">
+                    <li><label for="id_radio_input_1"><input type="radio" name="radio_input" value="1" id="id_radio_input_1"> Russia</label></li>
+                    <li><label for="id_radio_input_2"><input type="radio" name="radio_input" value="2" id="id_radio_input_2"> USA</label></li>
+                    <li><label for="id_radio_input_3"><input type="radio" name="radio_input" value="3" id="id_radio_input_3"> Japan</label></li>
+                </ul>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_select">Select</label>
+                <select class="field__select" name="select" id="id_select">
+                    <option value="">...</option>
+                    <option value="1">Archangel</option>
+                    <option value="2">Kusanagi</option>
+                    <option value="3">Eternal</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_multiple_select">Multiple Select</label>
+                <select class="field__multipleselect" name="multiple_select" id="id_multiple_select" multiple>
+                    <option value="1">Chaos</option>
+                    <option value="2">Gaia</option>
+                    <option value="3">Abyss</option>
+                    <option value="4">Saviour</option>
+                    <option value="5">Impulse</option>
+                </select>
+            </div>
+
+            <div class="controls">
+                <button class="control_save">Save</button>
+                <button class="control_reset" type="reset">Reset</button>
+                <button class="control_restore">Restore</button>
+            </div>
+
+            <div id="message"></div>
+        </form>
+
+        <script type="text/javascript">
+            $(".control_save").click(function () {
+                $("#testform").saveForm();
+                return false;
+            });
+
+            $(".control_restore").click(function () {
+                $("#testform").restoreForm();
+                return false;
+            });
+        </script>
+
+        <p></p>
+
+        <h2><a name="usage-example" class="anchor" href="#usage-example"><span class="octicon octicon-link"></span></a>Usage example:</h2>
+
+<div class="highlight highlight-javascript">
+<pre><span class="nx">$</span><span class="p">(</span><span class="s2">".save_button"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">$</span><span class="p">(</span><span class="s2">"#form_id"</span><span class="p">).</span><span class="nx">saveForm</span><span class="p">();</span>
 <span class="p">});</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s2">".restore_button"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">$</span><span class="p">(</span><span class="s2">"#form_id"</span><span class="p">).</span><span class="nx">restoreForm</span><span class="p">();</span>
-<span class="p">});</span>
-</pre></div>
+<span class="p">});</span></pre>
+</div>
 
-<h2>
-<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
+        <h2><a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements:</h2>
 
-<p></p>
+        <ul>
+            <li>jQuery 1.0+</li>
+            <li>LocalStorage support (IE 8.0+, Firefox 3.5+, Safari 4.0+, Chrome 4.0+, Opera 10.5+, iOS Safari 2.0+, Android 2.0+)</li>
+           <li>JSON support (IE 8.0+, Firefox 3.1+, Safari 4.0+, Chrome 3.0+, Opera 10.5+, iOS Safari 4.0+, Android 2.1+) or <a href="https://github.com/douglascrockford/JSON-js">JSON.js library</a></li>
+        </ul>
+    </section>
 
-<h2>
-<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements:</h2>
-
-<ul>
-<li>jQuery 1.0+</li>
-<li>LocalStorage support (IE 8.0+, Firefox 3.5+, Safari 4.0+, Chrome 4.0+, Opera 10.5+, iOS Safari 2.0+, Android 2.0+)</li>
-<li>JSON support (IE 8.0+, Firefox 3.1+, Safari 4.0+, Chrome 3.0+, Opera 10.5+, iOS Safari 4.0+, Android 2.1+) or <a href="https://github.com/douglascrockford/JSON-js">JSON.js library</a>
-</li>
-</ul>
-      </section>
-      <footer>
+    <footer>
         <p>This project is maintained by <a href="https://github.com/hackprime">hackprime</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-18126696-4");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-  </body>
+    </footer>
+</div>
+<script src="javascripts/scale.fix.js"></script>
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-18126696-4");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body>
 </html>
