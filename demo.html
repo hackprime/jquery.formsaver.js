@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jquery.formsaver test page</title>
+        <style>
+            #testform .field {
+                width: 400px;
+                margin: 0 5px 10px 5px;
+            }
+            #testform .field .label {
+                width: 160px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            #testform .field__textarea, #testform .field__radiogroup, #testform .field__select, #testform .field__multipleselect { display: inline-block; }
+            #testform .field__radiogroup {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            #message {
+                margin-top: 10px;
+                color: #777777;
+            }
+        </style>
+        <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="jquery.formsaver.js"></script>
+    </head>
+    <body>
+        <h1>jquery.formsaver</h1>
+        <form id="testform">
+            <div class="field">
+                <label class="label" for="id_text_input">Text input</label>
+                <input type="text" name="text_input" id="id_text_input">
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_textarea">Textarea</label>
+                <textarea class="field__textarea" name="textarea" id="id_textarea"></textarea>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_checkbox_input">Checkbox input</label>
+                <input type="checkbox" name="checkbox_input" id="id_checkbox_input">
+            </div>
+
+            <div class="field">
+                <span class="label" for="id_text_input">Radio inputs</span>
+                <ul class="field__radiogroup">
+                    <li><label for="id_radio_input_1"><input type="radio" name="radio_input" value="1" id="id_radio_input_1"> Russia</label></li>
+                    <li><label for="id_radio_input_2"><input type="radio" name="radio_input" value="2" id="id_radio_input_2"> USA</label></li>
+                    <li><label for="id_radio_input_3"><input type="radio" name="radio_input" value="3" id="id_radio_input_3"> Japan</label></li>
+                </ul>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_select">Select</label>
+                <select class="field__select" name="select" id="id_select">
+                    <option value="">...</option>
+                    <option value="1">Archangel</option>
+                    <option value="2">Kusanagi</option>
+                    <option value="3">Eternal</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="label" for="id_multiple_select">Multiple Select</label>
+                <select class="field__multipleselect" name="multiple_select" id="id_multiple_select" multiple>
+                    <option value="1">Chaos</option>
+                    <option value="2">Gaia</option>
+                    <option value="3">Abyss</option>
+                    <option value="4">Saviour</option>
+                    <option value="5">Impulse</option>
+                </select>
+            </div>
+
+            <div class="controls">
+                <button class="control_save">Save</button>
+                <button class="control_reset" type="reset">Reset</button>
+                <button class="control_restore">Restore</button>
+            </div>
+
+            <div id="message"></div>
+        </form>
+
+        <script type="text/javascript">
+            $(".control_save").click(function () {
+                $("#testform").saveForm();
+                $("#message").text('Data was successfully saved. Now, try to reset form (via page reloading or "reset" button) and restore saved data.');
+                return false;
+            });
+
+            $(".control_restore").click(function () {
+                $("#testform").restoreForm();
+                $("#message").empty();
+                return false;
+            });
+        </script>
+    </body>
+</html>
