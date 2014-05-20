@@ -3,7 +3,7 @@ jquery.formsaver.js
 
 Easy jQuery plugin for saving and restoring form data into LocalStorage
 
-## Usage example:
+## Usage:
 ```javascript
 $(".save_button").click(function () {
     $("#form_id").saveForm();
@@ -13,6 +13,7 @@ $(".restore_button").click(function () {
     $("#form_id").restoreForm();
 });
 ```
+Live demo [here](http://hackprime.github.io/jquery.formsaver.js/).
 
 ## Requirements:
 * jQuery 1.0+
