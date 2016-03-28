@@ -35,14 +35,14 @@
                 },
                 fillFields: function (formData) {
                     $.each(formData, function (name, value) {
-                        var field = container.find("[name=" + name + "]"),
+                        var field = container.find("[name='" + name + "']"),
                             inputType = field.prop('type');
                         value = value instanceof Array ? value.map(decodeURIComponent) :
                                                          decodeURIComponent(value);
                         if (inputType === 'checkbox') {
                             field.prop('checked', value === 'on');
                         } else if (inputType === 'radio') {
-                            field.filter("[value=" + value + "]").prop('checked', true);
+                            field.filter("[value='" + value + "']").prop('checked', true);
                         } else {
                             field.val(value);
                         }
