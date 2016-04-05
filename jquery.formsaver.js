@@ -71,4 +71,7 @@
     $.fn.restoreForm = function () {
         formsaver(['restore', 'clear'], $(this));
     };
+    $.fn.clearForm = function () {
+        formsaver(['clear'], $(this));
+    };
 })(jQuery);
